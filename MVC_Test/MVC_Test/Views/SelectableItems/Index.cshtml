@@ -1,0 +1,17 @@
+﻿@using MVC_Test.Models.SelectableItems;
+@model SelectableItemsViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Selectable Items Test</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(m => m.Id, Model.Id)
+    @Html.TextBoxFor(m => m.Id, Model.Id)
+
+    @await Html.PartialAsync("SelectableTable", Model.SelectableTableViewModel)
+
+    <p><input type="submit" value="Send" /></p>
+}

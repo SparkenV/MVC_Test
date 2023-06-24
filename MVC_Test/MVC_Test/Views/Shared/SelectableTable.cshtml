@@ -1,0 +1,55 @@
+﻿@using BLL.Models;
+@model SelectableTableViewModel;
+
+<input type="button" value="Click to Check if loged in" onclick="printSelected()" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Selected</th>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SelectableItems)
+        {
+            @await Html.PartialAsync("SelectableItem", item);
+@*            <tr id="@item.Id" onclick="calc('@item.Id');">
+                <td> <input id="checkbox-@item.Id" type="checkbox" asp-for="@item.Selected" /> </td>
+                <td> @item.Id </td>
+                <td> @item.Name </td>
+                <td> @item.Type </td>
+                <td> @item.Description </td>
+            </tr>*@
+        }
+    </tbody>
+</table>
+
+<script>
+    function calc(id) {
+
+        document.getElementById("checkbox-" + id).checked = !document.getElementById("checkbox-" + id).checked
+
+
+    }
+
+function printSelected() {
+    $.ajax({
+        url: '/selectable/print',
+        cache: false,
+        type: "POST",
+        success: function (response) {
+            if (response && response.data) {
+                var data = response.data;
+                $('#data')[0].innerHTML = data;
+            }
+            else {
+                $('#data')[0].innerHTML = "Unknown response (" + response + ")";
+            }
+        }
+    });
+}
+</script>
