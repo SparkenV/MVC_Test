@@ -9,9 +9,48 @@
 @using (Html.BeginForm())
 {
     @Html.LabelFor(m => m.Id, Model.Id)
-    @Html.TextBoxFor(m => m.Id, Model.Id)
+    @*@Html.TextBoxFor(m => m.Id, Model.Id)*@
 
-    @await Html.PartialAsync("SelectableTable", Model.SelectableTableViewModel)
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Selected</th>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @*        @foreach (var item in Model.SelectableItems)
+        {
+        //@await Html.PartialAsync("SelectableItem", item);
+        <tr id="@item.Id" onclick="calc('@item.Id');">
+        <td> <input id="checkbox-@item.Id" type="checkbox" asp-for="@item.Selected" /> </td>
+        <td for="@Model.SelectableItems[item.NumberInTable].Id"> @item.Id </td>
+        <td name="SelectableTableViewModel.SelectableItems[@item.NumberInTable].Name"> @item.Name </td>
+        <td name="SelectableTableViewModel.SelectableItems[@item.NumberInTable].Type"> @item.Type </td>
+        <td name="SelectableTableViewModel.SelectableItems[@item.NumberInTable].Description"> @item.Description </td>
+        </tr>
+        }*@
+            @for (int i = 0; i < Model.SelectableTableViewModel.SelectableItems.Length; i++)
+            {
+                <tr>
+                    <td> 
+                        <input id="checkbox-@Model.SelectableTableViewModel.SelectableItems[i].Id" 
+                        type="checkbox" 
+                        asp-for="@Model.SelectableTableViewModel.SelectableItems[i].Selected" /> 
+                    </td>
+                    <td>
+                        <input asp-for="@Model.SelectableTableViewModel.SelectableItems[i].Id" 
+                        type="text"
+                        asp-for="@Model.SelectableTableViewModel.SelectableItems[i].Id" />
+                            
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
     <p><input type="submit" value="Send" /></p>
 }
