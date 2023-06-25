@@ -1,4 +1,5 @@
-﻿@using MVC_Test.Models.SelectableItems;
+﻿@using MVC_Test.Helpers;
+@using MVC_Test.Models.SelectableItems;
 @model SelectableItemsViewModel;
 @{
     ViewData["Title"] = "Home Page";
@@ -8,7 +9,6 @@
 
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(m => m.Id, Model.Id)
     @*@Html.TextBoxFor(m => m.Id, Model.Id)*@
 
     <table class="table">
@@ -33,11 +33,11 @@
         <td name="SelectableTableViewModel.SelectableItems[@item.NumberInTable].Description"> @item.Description </td>
         </tr>
         }*@
-            @for (int i = 0; i < Model.SelectableTableViewModel.SelectableItems.Length; i++)
+            @for (int i = 0; i < Model.SelectableTableViewModel.SelectableItems.Count; i++)
             {
                 <tr>
                     <td> 
-                        <input id="checkbox-@Model.SelectableTableViewModel.SelectableItems[i].Id" 
+                        <input id="checkbox-@Model.SelectableTableViewModel.SelectableItems[i].Selected" 
                         type="checkbox" 
                         asp-for="@Model.SelectableTableViewModel.SelectableItems[i].Selected" /> 
                     </td>
@@ -46,6 +46,18 @@
                         type="text"
                         asp-for="@Model.SelectableTableViewModel.SelectableItems[i].Id" />
                             
+                    </td>
+                    <td>
+                        @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Name", Model.SelectableTableViewModel.SelectableItems[i].Name)
+                        @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Name", Model.SelectableTableViewModel.SelectableItems[i].Name) 
+                    </td>
+                    <td> 
+                        @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Type", Model.SelectableTableViewModel.SelectableItems[i].Type) 
+                        @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Type", Model.SelectableTableViewModel.SelectableItems[i].Type) 
+                    </td>
+                    <td> 
+                        @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Description", Model.SelectableTableViewModel.SelectableItems[i].Description) 
+                        @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Description", Model.SelectableTableViewModel.SelectableItems[i].Description) 
                     </td>
                 </tr>
             }

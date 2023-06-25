@@ -10,13 +10,10 @@ namespace MVC_Test.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new SelectableItemsViewModel
-            {
-                Id = Guid.NewGuid().ToString()
-            };
+            var model = new SelectableItemsViewModel();
 
             model.SelectableTableViewModel = new SelectableTableViewModel();
-            model.SelectableTableViewModel.SelectableItems = DummyDataHelper.GetSelectableItems(10).ToArray();
+            model.SelectableTableViewModel.SelectableItems = DummyDataHelper.GetSelectableItems(10);
 
             return View(model);
         }
@@ -24,7 +21,14 @@ namespace MVC_Test.Controllers
         [HttpPost]
         public IActionResult Index(SelectableItemsViewModel viewModel)
         {
-            return View(viewModel);
+            if (ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            else 
+            {
+                return View(viewModel);
+            }
         }
 
         [Route("selectable/print")]

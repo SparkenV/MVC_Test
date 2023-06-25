@@ -2,6 +2,6 @@
 {
     public class SelectableTableViewModel
     {
-        public SelectableItem[] SelectableItems { get; set; } = Array.Empty<SelectableItem>();
+        public List<SelectableItem> SelectableItems { get; set; } = new List<SelectableItem>();
     }
 }

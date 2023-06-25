@@ -25,7 +25,6 @@ namespace BLL
                 Name = Faker.Name.FullName(),
                 Description = Faker.Lorem.Sentence(),
                 Type = Faker.Lorem.GetFirstWord(),
-                NumberInTable = index,
                 Selected = false // new Random().Next(2) == 1
             };
         }

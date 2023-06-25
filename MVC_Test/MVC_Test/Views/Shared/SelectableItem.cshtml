@@ -1,4 +1,4 @@
-﻿@using BLL.Models;
+﻿@*@using BLL.Models;
 @model SelectableItem;
 
 <tr>
@@ -7,4 +7,4 @@
     <td> @Html.TextBoxFor(m => m.Name, new { name = $"SelectableTableViewModel.SelectableItems[{Model.NumberInTable}].Name"}) </td>
     <td> @Html.TextBoxFor(m => m.Type, new { name = $"SelectableTableViewModel.SelectableItems[{Model.NumberInTable}].Type"}) </td>
     <td> @Html.TextBoxFor(m => m.Description, new { name = $"SelectableTableViewModel.SelectableItems[{Model.NumberInTable}].Description"}) </td>
-</tr>
+</tr>*@
