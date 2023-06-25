@@ -1,38 +1,40 @@
 ﻿@using BLL.Models;
 @model SelectableTableViewModel;
 
-<input type="button" value="Click to Check if loged in" onclick="printSelected()" />
-
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">Selected</th>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Type</th>
-            <th scope="col">Description</th>
+            @foreach (var item in Model.ColumnNames)
+            {
+                <th scope="col">@item</th>
+            }
         </tr>
     </thead>
     <tbody>
-@*        @foreach (var item in Model.SelectableItems)
-        {
-            //@await Html.PartialAsync("SelectableItem", item);
-            <tr id="@item.Id" onclick="calc('@item.Id');">
-                <td> <input id="checkbox-@item.Id" type="checkbox" asp-for="@item.Selected" /> </td>
-                <td for="@Model.SelectableItems[item.NumberInTable].Id"> @item.Id </td>
-                <td name="SelectableTableViewModel.SelectableItems[@item.NumberInTable].Name"> @item.Name </td>
-                <td name="SelectableTableViewModel.SelectableItems[@item.NumberInTable].Type"> @item.Type </td>
-                <td name="SelectableTableViewModel.SelectableItems[@item.NumberInTable].Description"> @item.Description </td>
-            </tr>
-        }*@
         @for (int i = 0; i < Model.SelectableItems.Count; i++)
         {
-            <tr>
-                <td> <input id="checkbox-@Model.SelectableItems[i].Id" type="checkbox" asp-for="@Model.SelectableItems[i].Selected" /> </td>
+            <tr onclick="calc('@Model.SelectableItems[i].Id')">
                 <td>
-                    <span asp-for="@Model.SelectableItems[i].Id">
-                        @Model.SelectableItems[i].Id
-                    </span>
+                    @Html.CheckBox(
+                        $"SelectableTableViewModel.SelectableItems[{i}].Selected",
+                        Model.SelectableItems[i].Selected, 
+                        new {id = $"checkbox-{@Model.SelectableItems[i].Id}"})
+                </td>
+                <td>
+                    @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Id", Model.SelectableItems[i].Id)
+                    @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Id", Model.SelectableItems[i].Id)
+                </td>
+                <td>
+                    @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Name", Model.SelectableItems[i].Name)
+                    @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Name", Model.SelectableItems[i].Name)
+                </td>
+                <td>
+                    @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Type", Model.SelectableItems[i].Type)
+                    @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Type", Model.SelectableItems[i].Type)
+                </td>
+                <td>
+                    @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Description", Model.SelectableItems[i].Description)
+                    @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Description", Model.SelectableItems[i].Description)
                 </td>
             </tr>
         }
@@ -41,26 +43,7 @@
 
 <script>
     function calc(id) {
-
+        console.log(id);
         document.getElementById("checkbox-" + id).checked = !document.getElementById("checkbox-" + id).checked
-
-
     }
-
-function printSelected() {
-    $.ajax({
-        url: '/selectable/print',
-        cache: false,
-        type: "POST",
-        success: function (response) {
-            if (response && response.data) {
-                var data = response.data;
-                $('#data')[0].innerHTML = data;
-            }
-            else {
-                $('#data')[0].innerHTML = "Unknown response (" + response + ")";
-            }
-        }
-    });
-}
 </script>

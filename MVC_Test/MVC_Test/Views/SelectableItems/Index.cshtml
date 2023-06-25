@@ -9,60 +9,7 @@
 
 @using (Html.BeginForm())
 {
-    @*@Html.TextBoxFor(m => m.Id, Model.Id)*@
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Selected</th>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Type</th>
-                <th scope="col">Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            @*        @foreach (var item in Model.SelectableItems)
-        {
-        //@await Html.PartialAsync("SelectableItem", item);
-        <tr id="@item.Id" onclick="calc('@item.Id');">
-        <td> <input id="checkbox-@item.Id" type="checkbox" asp-for="@item.Selected" /> </td>
-        <td for="@Model.SelectableItems[item.NumberInTable].Id"> @item.Id </td>
-        <td name="SelectableTableViewModel.SelectableItems[@item.NumberInTable].Name"> @item.Name </td>
-        <td name="SelectableTableViewModel.SelectableItems[@item.NumberInTable].Type"> @item.Type </td>
-        <td name="SelectableTableViewModel.SelectableItems[@item.NumberInTable].Description"> @item.Description </td>
-        </tr>
-        }*@
-            @for (int i = 0; i < Model.SelectableTableViewModel.SelectableItems.Count; i++)
-            {
-                <tr>
-                    <td> 
-                        <input id="checkbox-@Model.SelectableTableViewModel.SelectableItems[i].Selected" 
-                        type="checkbox" 
-                        asp-for="@Model.SelectableTableViewModel.SelectableItems[i].Selected" /> 
-                    </td>
-                    <td>
-                        <input asp-for="@Model.SelectableTableViewModel.SelectableItems[i].Id" 
-                        type="text"
-                        asp-for="@Model.SelectableTableViewModel.SelectableItems[i].Id" />
-                            
-                    </td>
-                    <td>
-                        @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Name", Model.SelectableTableViewModel.SelectableItems[i].Name)
-                        @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Name", Model.SelectableTableViewModel.SelectableItems[i].Name) 
-                    </td>
-                    <td> 
-                        @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Type", Model.SelectableTableViewModel.SelectableItems[i].Type) 
-                        @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Type", Model.SelectableTableViewModel.SelectableItems[i].Type) 
-                    </td>
-                    <td> 
-                        @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Description", Model.SelectableTableViewModel.SelectableItems[i].Description) 
-                        @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Description", Model.SelectableTableViewModel.SelectableItems[i].Description) 
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    @await Html.PartialAsync("SelectableTable", Model.SelectableTableViewModel);
 
     <p><input type="submit" value="Send" /></p>
 }
