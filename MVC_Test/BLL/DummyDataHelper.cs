@@ -11,21 +11,23 @@ namespace BLL
 
             for (int i = 0; i < count; i++)
             {
-                items.Add(GetSelectableItem(i));
+                items.Add(GetSelectableItem());
             }
 
             return items;
         }
 
-        public static SelectableItem GetSelectableItem(int index = 0)
+        public static SelectableItem GetSelectableItem()
         {
             return new SelectableItem()
             {
-                Id = Guid.NewGuid().ToString(),
-                Name = Faker.Name.FullName(),
-                Description = Faker.Lorem.Sentence(),
-                Type = Faker.Lorem.GetFirstWord(),
-                Selected = false // new Random().Next(2) == 1
+                IsSelected = true,
+                ItemData = new Message {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = Faker.Name.FullName(),
+                    Description = Faker.Lorem.Sentence(),
+                    Type = Faker.Lorem.GetFirstWord()
+                }
             };
         }
     }

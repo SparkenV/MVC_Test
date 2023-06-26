@@ -1,5 +1,5 @@
 ﻿@using BLL.Models;
-@model SelectableTableViewModel;
+@model SelectableTableViewModel<Message>;
 
 <table class="table table-hover">
     <thead>
@@ -11,30 +11,30 @@
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < Model.SelectableItems.Count; i++)
+        @for (int i = 0; i < Model.Items.Count; i++)
         {
-            <tr onclick="calc('@Model.SelectableItems[i].Id')">
+            <tr onclick="calc('@Model.Items[i].ItemData.Id')">
                 <td>
                     @Html.CheckBox(
-                        $"SelectableTableViewModel.SelectableItems[{i}].Selected",
-                        Model.SelectableItems[i].Selected, 
-                        new {id = $"checkbox-{@Model.SelectableItems[i].Id}"})
+                        $"SelectableTableViewModel.Items[{i}].IsSelected",
+                        Model.Items[i].IsSelected, 
+                        new {id = $"checkbox-{@Model.Items[i].ItemData.Id}"})
                 </td>
                 <td>
-                    @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Id", Model.SelectableItems[i].Id)
-                    @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Id", Model.SelectableItems[i].Id)
+                    @Html.Label($"SelectableTableViewModel.Items[{i}].ItemData.Id", Model.Items[i].ItemData.Id)
+                    @Html.Hidden($"SelectableTableViewModel.Items[{i}].ItemData.Id", Model.Items[i].ItemData.Id)
                 </td>
                 <td>
-                    @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Name", Model.SelectableItems[i].Name)
-                    @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Name", Model.SelectableItems[i].Name)
+                    @Html.Label($"SelectableTableViewModel.Items[{i}].ItemData.Name", Model.Items[i].ItemData.Name)
+                    @Html.Hidden($"SelectableTableViewModel.Items[{i}].ItemData.Name", Model.Items[i].ItemData.Name)
                 </td>
                 <td>
-                    @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Type", Model.SelectableItems[i].Type)
-                    @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Type", Model.SelectableItems[i].Type)
+                    @Html.Label($"SelectableTableViewModel.Items[{i}].ItemData.Type", Model.Items[i].ItemData.Type)
+                    @Html.Hidden($"SelectableTableViewModel.Items[{i}].ItemData.Type", Model.Items[i].ItemData.Type)
                 </td>
                 <td>
-                    @Html.Label($"SelectableTableViewModel.SelectableItems[{i}].Description", Model.SelectableItems[i].Description)
-                    @Html.Hidden($"SelectableTableViewModel.SelectableItems[{i}].Description", Model.SelectableItems[i].Description)
+                    @Html.Label($"SelectableTableViewModel.Items[{i}].ItemData.Description", Model.Items[i].ItemData.Description)
+                    @Html.Hidden($"SelectableTableViewModel.Items[{i}].ItemData.Description", Model.Items[i].ItemData.Description)
                 </td>
             </tr>
         }

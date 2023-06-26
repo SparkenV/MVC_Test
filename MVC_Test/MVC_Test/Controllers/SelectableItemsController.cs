@@ -9,10 +9,15 @@ namespace MVC_Test.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new SelectableItemsViewModel();
-            model.SelectableTableViewModel.SelectableItems = DummyDataHelper.GetSelectableItems(10);
+            var model = TempData["SelectableItemsViewModel"] as SelectableItemsViewModel;
 
-            return View(model);
+            if (model == null)
+            {
+                model = new SelectableItemsViewModel();
+                model.SelectableTableViewModel.Items = DummyDataHelper.GetSelectableItems(10);
+            }
+
+            return View("Index", model);
         }
 
         [HttpPost]
@@ -26,6 +31,62 @@ namespace MVC_Test.Controllers
             {
                 return View(viewModel);
             }
+        }
+
+        public IActionResult Rebind(SelectableItemsViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Request.Method == "POST")
+                {
+                    var c = viewModel.SelectableTableViewModel.Items.Count(i =>
+                    {
+                        if (i.IsSelected)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"Rebind. Id: {i.ItemData.Id}");
+                        }
+
+                        return i.IsSelected;
+                    });
+
+                    System.Diagnostics.Debug.WriteLine($"Rebind Action for {c} items!");
+                    return View("Index", viewModel);
+                }
+                else
+                {
+                    return Index();
+                }                
+            }
+
+            throw new Exception("InvalidModel");
+        }
+
+        public IActionResult Rebatch(SelectableItemsViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Request.Method == "POST")
+                {
+                    var c = viewModel.SelectableTableViewModel.Items.Count(i =>
+                    {
+                        if (i.IsSelected)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"Rebatch. Id: {i.ItemData.Id}");
+                        }
+
+                        return i.IsSelected;
+                    });
+
+                    System.Diagnostics.Debug.WriteLine($"Rebatch Action for {c} items!");
+                    return View("Index", viewModel);
+                }
+                else
+                {
+                    return Index();
+                }
+            }
+
+            throw new Exception("InvalidModel");
         }
     }
 }

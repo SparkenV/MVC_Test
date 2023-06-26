@@ -1,5 +1,4 @@
 ﻿using BLL.Models;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace MVC_Test.Models.SelectableItems
 {
@@ -7,15 +6,10 @@ namespace MVC_Test.Models.SelectableItems
     {
         public SelectableItemsViewModel() 
         {
-            SelectableTableViewModel = new SelectableTableViewModel
-            {
-                ColumnNames = new List<string>()
-                {
-                    "Selected", "#", "Name", "Type", "Description"
-                }
-            };
+            SelectableTableViewModel = new SelectableTableViewModel<Message>();
+            SelectableTableViewModel.ColumnNames.AddRange(new string[]{ "", "Name", "Type", "Description" });
         }
 
-        public SelectableTableViewModel SelectableTableViewModel { get; set; }
+        public SelectableTableViewModel<Message> SelectableTableViewModel { get; set; }
     }
 }

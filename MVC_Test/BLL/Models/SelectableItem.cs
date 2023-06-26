@@ -1,11 +1,10 @@
-﻿namespace BLL.Models
+﻿using BLL.Models.Interfaces;
+
+namespace BLL.Models
 {
-    public class SelectableItem
+    public class SelectableItem : ISelectableTableItem<Message>
     {
-        public string Id { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string Type { get; set; } = string.Empty;
-        public bool Selected { get; set; }
+        public Message ItemData { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

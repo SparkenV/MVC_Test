@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BLL.Models.Interfaces
 {
-    public interface ISelectableTableItem
+    public interface ISelectableTableItem<T> where T : class
     {
-        public int NumberInTable { get; set; }
-        public bool Selected { get; set; }
+        public T ItemData { get; set; }
+        public bool IsSelected { get; set; }
     }
 }
