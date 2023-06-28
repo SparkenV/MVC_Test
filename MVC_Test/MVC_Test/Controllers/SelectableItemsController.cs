@@ -1,4 +1,6 @@
 ﻿using BLL;
+using BLL.Models;
+using BLL.Models.Selectable;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Test.Models.SelectableItems;
 
@@ -15,6 +17,33 @@ namespace MVC_Test.Controllers
             {
                 model = new SelectableItemsViewModel();
                 model.SelectableTableViewModel.Items = DummyDataHelper.GetSelectableItems(10);
+                model.SelectableTableViewModel.ColumnsData = new List<SelectableTableColumnData>()
+                {
+                    new SelectableTableColumnData
+                    {
+                        HeaderText = string.Empty,
+                        PropertyName = "Id",
+                        CellType = SelectableTableCellType.ActionLink
+                    },
+                    new SelectableTableColumnData
+                    {
+                        HeaderText = "Name",
+                        PropertyName = "Name",
+                        CellType = SelectableTableCellType.Label
+                    },
+                    new SelectableTableColumnData
+                    {
+                        HeaderText = "Type",
+                        PropertyName = "Type",
+                        CellType = SelectableTableCellType.Label
+                    },
+                    new SelectableTableColumnData
+                    {
+                        HeaderText = "Description",
+                        PropertyName = "Description",
+                        CellType = SelectableTableCellType.Label
+                    },
+                };
             }
 
             return View("Index", model);
@@ -39,15 +68,7 @@ namespace MVC_Test.Controllers
             {
                 if (HttpContext.Request.Method == "POST")
                 {
-                    var c = viewModel.SelectableTableViewModel.Items.Count(i =>
-                    {
-                        if (i.IsSelected)
-                        {
-                            System.Diagnostics.Debug.WriteLine($"Rebind. Id: {i.ItemData.Id}");
-                        }
-
-                        return i.IsSelected;
-                    });
+                    var c = viewModel.SelectableTableViewModel.Items.Count(i => i.IsSelected);
 
                     System.Diagnostics.Debug.WriteLine($"Rebind Action for {c} items!");
                     return View("Index", viewModel);
@@ -67,15 +88,7 @@ namespace MVC_Test.Controllers
             {
                 if (HttpContext.Request.Method == "POST")
                 {
-                    var c = viewModel.SelectableTableViewModel.Items.Count(i =>
-                    {
-                        if (i.IsSelected)
-                        {
-                            System.Diagnostics.Debug.WriteLine($"Rebatch. Id: {i.ItemData.Id}");
-                        }
-
-                        return i.IsSelected;
-                    });
+                    var c = viewModel.SelectableTableViewModel.Items.Count(i => i.IsSelected);
 
                     System.Diagnostics.Debug.WriteLine($"Rebatch Action for {c} items!");
                     return View("Index", viewModel);

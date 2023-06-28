@@ -1,4 +1,4 @@
-﻿using BLL.Models;
+﻿using BLL.Models.Selectable;
 
 namespace MVC_Test.Models.SelectableItems
 {
@@ -6,10 +6,9 @@ namespace MVC_Test.Models.SelectableItems
     {
         public SelectableItemsViewModel() 
         {
-            SelectableTableViewModel = new SelectableTableViewModel<Message>();
-            SelectableTableViewModel.ColumnNames.AddRange(new string[]{ "", "Name", "Type", "Description" });
+            SelectableTableViewModel = new SelectableTableViewModel<object>();
         }
 
-        public SelectableTableViewModel<Message> SelectableTableViewModel { get; set; }
+        public SelectableTableViewModel<object> SelectableTableViewModel { get; set; }
     }
 }
