@@ -1,0 +1,55 @@
+﻿@using BLL.Models;
+@using BLL.Models.Selectable;
+@model SelectableTableViewModel<Message>;
+
+@Html.ListBox("SelectableTableViewModel.SelectedColumns", Model.FullListOfColumns, new { @class="selectpicker", })
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            @foreach (var item in Model.ColumnsToShow)
+            {
+                <th scope="col">@item</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Items.Count; i++)
+        {
+            <tr onclick="calc('@i')">
+                <td>
+                    @Html.CheckBox(
+                $"SelectableTableViewModel.Items[{i}].IsSelected",
+                Model.Items[i].IsSelected,
+                new {id = $"checkbox-{@i}"})
+                </td>
+
+                @await Html.PartialAsync(
+                    "Selectable/SelectableItem",
+                    Model.Items[i],
+                    new ViewDataDictionary(ViewData)
+                    {
+                        {"ColumnsData", Model.ColumnsData},
+                        {"ColumnsToShow", Model.ColumnsToShow},
+                        {"IndexInTable", @i}
+                    })
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function calc(id) {
+        console.log(id);
+        document.getElementById("checkbox-" + id).checked = !document.getElementById("checkbox-" + id).checked
+    }
+
+    $(".selectable-item > a").click(function (e) {
+        e.stopPropagation();
+    });
+
+    $('#select_id').change(function () {
+        alert($(this).val());
+    })
+</script>

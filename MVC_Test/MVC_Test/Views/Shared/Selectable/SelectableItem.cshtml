@@ -1,0 +1,34 @@
+﻿﻿@using BLL.Models.Selectable;
+@model SelectableItemViewModel
+
+@foreach (var item in (ViewData["ColumnsData"] as List<SelectableTableColumnData>) ?? new List<SelectableTableColumnData>())
+{
+    @if (((ViewData["ColumnsToShow"] as List<string>) ?? new List<string>()).Contains(item.PropertyName))
+    {
+        @switch (item.CellType)
+        {
+            case SelectableTableCellType.Label:
+                <td>
+                    @Html.Label($"SelectableTableViewModel.Items[{ViewData["IndexInTable"]}].ItemData.{item.PropertyName}", Model.GetValue(item.PropertyName))
+                    @Html.Hidden($"SelectableTableViewModel.Items[{ViewData["IndexInTable"]}].ItemData.{item.PropertyName}", Model.GetValue(item.PropertyName))
+                </td>
+                break;
+            case SelectableTableCellType.ActionLink:
+                <td class="selectable-item">
+                    @Html.ActionLink(Model.GetValue(item.PropertyName), "Index", "MessageDetailsController")
+                    @Html.Hidden($"SelectableTableViewModel.Items[{ViewData["IndexInTable"]}].ItemData.{item.PropertyName}", Model.GetValue(item.PropertyName))
+                </td>
+                break;
+            case SelectableTableCellType.Button:
+                <td class="selectable-item">
+                    @Html.ActionLink(Model.GetValue(item.PropertyName), "Index", "MessageDetailsController")
+                    @Html.Hidden($"SelectableTableViewModel.Items[{ViewData["IndexInTable"]}].ItemData.{item.PropertyName}", Model.GetValue(item.PropertyName))
+                </td>
+                break;
+        }
+    }
+    else
+    {
+        @Html.Hidden($"SelectableTableViewModel.Items[{ViewData["IndexInTable"]}].ItemData.{item.PropertyName}", Model.GetValue(item.PropertyName))
+    }
+}

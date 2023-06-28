@@ -1,13 +1,14 @@
 ﻿using BLL.Models;
+using BLL.Models.Selectable;
 using System;
 
 namespace BLL
 {
     public static class DummyDataHelper
     {
-        public static List<SelectableItem> GetSelectableItems(int count)
+        public static List<SelectableItemViewModel> GetSelectableItems(int count)
         {
-            var items = new List<SelectableItem>();
+            var items = new List<SelectableItemViewModel>();
 
             for (int i = 0; i < count; i++)
             {
@@ -17,9 +18,9 @@ namespace BLL
             return items;
         }
 
-        public static SelectableItem GetSelectableItem()
+        public static SelectableItemViewModel GetSelectableItem()
         {
-            return new SelectableItem()
+            return new SelectableItemViewModel()
             {
                 IsSelected = true,
                 ItemData = new Message {

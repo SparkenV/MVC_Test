@@ -9,7 +9,8 @@
 
 @using (Html.BeginForm())
 {
-    @await Html.PartialAsync("SelectableTable", Model.SelectableTableViewModel);
+    @await Html.PartialAsync("Selectable/SelectableTable", Model.SelectableTableViewModel)
+    ;
 
     <p><input type="submit" value="Rebind" formaction="Rebind"/></p>
     <p><input type="submit" value="Rebatch" formaction="Rebatch" /></p>

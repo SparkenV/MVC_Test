@@ -25,11 +25,11 @@ namespace MVC_Test.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View(viewModel);
+                return View("Index", viewModel);
             }
             else 
             {
-                return View(viewModel);
+                return View("Index", viewModel);
             }
         }
 
